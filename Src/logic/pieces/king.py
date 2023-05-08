@@ -1,4 +1,4 @@
-from piece import Piece
+from logic.pieces.piece import Piece
 
 class King(Piece):
 

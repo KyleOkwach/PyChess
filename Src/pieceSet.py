@@ -3,12 +3,12 @@ import sys
 import os
 
 # import pieces
-from pawn import Pawn
-from knight import Knight
-from bishop import Bishop
-from rook import Rook
-from queen import Queen
-from king import King
+from logic.pieces.pawn import Pawn
+from logic.pieces.knight import Knight
+from logic.pieces.bishop import Bishop
+from logic.pieces.rook import Rook
+from logic.pieces.queen import Queen
+from logic.pieces.king import King
 
 class PieceSet:
 

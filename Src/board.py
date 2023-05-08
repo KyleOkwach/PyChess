@@ -2,15 +2,12 @@ import pygame
 
 class Board:
 
-    def __init__(self, size, theme):
-        # colors
+    def __init__(self, surface, size, theme):
         self.board_size = 8
-        # self.LIGHT_COLOR = (240, 217, 181)
-        # self.DARK_COLOR = (139, 71, 38)
         self.LIGHT_COLOR = theme[0]
         self.DARK_COLOR = theme[1]
         self.SQUARE_SIZE = size // self.board_size
-        # self.SQUARE_SIZE = 60
+        self.surface = surface
 
     def draw_board(self, surface, player):
         # loop through each square
@@ -59,12 +56,3 @@ class Board:
                     text_rect = text.get_rect(center = (x + self.SQUARE_SIZE -padding, y + self.SQUARE_SIZE -padding))
                     
                     surface.blit(text, text_rect)
-
-    def highlight_square(self, row, col):
-        pass
-
-    def square_occupied(self, row, col):
-        pass
-
-    def occupy_square(self, row, col):
-        pass

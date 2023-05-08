@@ -4,6 +4,7 @@ import sys
 
 from board import Board
 from fen import Fen
+from logic.moves import Moves
 
 def main():
     pygame.init()
@@ -11,34 +12,55 @@ def main():
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
 
-    # board themes
+    # --------------
+    # GAME SETTINGS
+    # --------------
+
+    # board theme
     standard = [(240, 217, 181), (139, 71, 38)]
     kb_gambit = ["#e5e5e5", "#fc00e7"]
 
+    mode = "ai"
+
+
+    # ------
     # BOARD
+    # ------
+
     board_scale = 2.5
     board_width, board_height = screen.get_width() // board_scale, screen.get_width() // board_scale
+
+    # surfaces
     board_surface = pygame.Surface((board_width, board_height), pygame.SRCALPHA)
-    board = Board(board_height, kb_gambit)
+    highlight_surface = pygame.Surface((board_width, board_height), pygame.SRCALPHA)
+    piece_surface = pygame.Surface((board_width, board_height), pygame.SRCALPHA)
+
+    board = Board(board_surface, board_height, kb_gambit)
+    square_size = board_height // 8
 
     screen.fill("#1E1E1E")
 
     player = 1  # 1 for white, 2 for black
 
-    mode = "ai"
-
+    # --------
     # PIECES
+    # --------
+
     starting_pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     test_pos = "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1"
     puzzle_pos = "2kr1b1r/p1p3pp/1p3n2/4B3/1q6/2NB4/PPP2PbP/R2QK2R w k - 0 1"
     curr_pos = puzzle_pos
 
     fen = Fen(curr_pos)
+    moves = Moves(board_height)
 
     # print board
     for i in fen.read_fen():
         print(i)
 
+    # ----------
+    # GAME LOOP
+    # ----------
     while True:
         clock.tick(settings.FPS)
         
@@ -46,11 +68,13 @@ def main():
         pieces = fen
         
         board.draw_board(board_surface, player)
-        pieces.draw_pieces(board_surface, player)
+        pieces.draw_pieces(piece_surface, player)
         
         boardX = screen.get_width()//3.5
         boardY = screen.get_height()//8
         screen.blit(board_surface, (boardX, boardY))
+        screen.blit(piece_surface, (boardX, boardY))
+        screen.blit(highlight_surface, (boardX, boardY))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -65,10 +89,10 @@ def main():
                     mouseX = event.pos[0] - boardX
                     mouseY = event.pos[1] - boardY
 
-                    row = 1
-                    col = 1
+                    col = mouseX // square_size
+                    row = mouseY // square_size
 
-                print(f"{col}, {row}")
+                    moves.highlight_active_square(highlight_surface, col, row, fen.read_fen())
         
         # curr_pos = pieces.update_board()
 
