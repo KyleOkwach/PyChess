@@ -19,6 +19,7 @@ class Piece:
         surface_size = piece_surface.get_height()
         
         piece_art = pygame.image.load(os.path.join("Assets/img", self.theme+"/"+type+"_"+self.color.lower()+".png")).convert_alpha()
+        piece_art = pygame.transform.scale(piece_art, (60, 60))
         piece_rect = piece_art.get_rect(center = (surface_size//2, surface_size//2))
 
         piece_surface.blit(piece_art, piece_rect)

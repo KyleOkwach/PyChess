@@ -11,11 +11,15 @@ def main():
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
 
+    # board themes
+    standard = [(240, 217, 181), (139, 71, 38)]
+    kb_gambit = ["#e5e5e5", "#fc00e7"]
+
     # BOARD
     board_scale = 2.5
     board_width, board_height = screen.get_width() // board_scale, screen.get_width() // board_scale
     board_surface = pygame.Surface((board_width, board_height), pygame.SRCALPHA)
-    board = Board(board_height)
+    board = Board(board_height, kb_gambit)
 
     screen.fill("#1E1E1E")
 

@@ -18,7 +18,7 @@ class PieceSet:
         self.row = row
         self.col = col
         self.type = type
-        self.theme = "classic"
+        self.theme = "1kb_gambit"
 
     def draw_piece(self):
         if self.type == "Pawn":
