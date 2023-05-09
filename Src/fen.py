@@ -2,7 +2,7 @@ from pieceSet import PieceSet
 
 class Fen:
 
-    def __init__(self, fen):
+    def __init__(self, fen, player):
         self.fen = fen
         split_fen = fen.split()
         self.position = split_fen[0]  # pieces fen board
@@ -17,6 +17,12 @@ class Fen:
             "p" : "Pawn",
             "x" : "None"
         }
+
+        if player == 2:
+            self.position = self.position[::-1]
+            self.player = "b"
+        else:
+            self.player = "w"
 
     def read_fen(self):
         size= 8
@@ -33,13 +39,8 @@ class Fen:
             
         return board
 
-    def draw_pieces(self, surface, player):
+    def draw_pieces(self, surface):
         position = self.position
-        if player == 2:
-            position = self.position[::-1]
-            self.player = "b"
-        else:
-            self.player = "w"
 
         for (i, y) in zip(self.read_fen(), range(8)):
             for (j, x) in zip(i, range(8)):
@@ -47,7 +48,8 @@ class Fen:
                     color = "White"
                 else:
                     color = "Black"
-                PieceSet(surface, color, x, y, self.piece_map[j.lower()]).draw_piece()
+                # PieceSet(surface, color, x, y, self.piece_map[j.lower()]).draw_piece()
+                PieceSet(j.lower()).draw_piece(surface, color, x, y)
             
     def update_board(self) -> str:
         # update fen board after move

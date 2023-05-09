@@ -12,27 +12,49 @@ from logic.pieces.king import King
 
 class PieceSet:
 
-    def __init__(self, surface, color, col, row, type):
+    def __init__(self, type):
+        self.type = type
+        self.styles = ["classic", "1kb_gambit"]
+        self.style = self.styles[1]
+
+        self.piece_map = {
+            "r" : Rook,
+            "n" : Knight,
+            "b" : Bishop,
+            "k" : King,
+            "q" : Queen,
+            "p" : Pawn,
+            "x" : "None"
+        }
+
+        self.piece_map_str = {
+            "r" : "Rook",
+            "n" : "Knight",
+            "b" : "Bishop",
+            "k" : "King",
+            "q" : "Queen",
+            "p" : "Pawn",
+            "x" : "None"
+        }
+
+        self.piece_object = self.piece_map[self.type]
+
+    def draw_piece(self, surface, color, col, row):
+
         self.surface = surface
         self.color = color
         self.row = row
         self.col = col
-        self.type = type
-        self.theme = "1kb_gambit"
 
-    def draw_piece(self):
-        if self.type == "Pawn":
-            Pawn(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
-        elif self.type == "Knight":
-            Knight(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
-        elif self.type == "Bishop":
-            Bishop(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
-        elif self.type == "Rook":
-            Rook(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
-        elif self.type == "Queen":
-            Queen(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
-        elif self.type == "King":
-            King(self.surface, self.color, self.col, self.row, self.theme).draw_piece(self.type.lower())
+        if self.piece_object != "None":
+            self.piece_object(self.col, self.row).draw_piece(self.piece_map_str[self.type].lower(), self.surface, self.color, self.style)
+    
+    def get_legal_moves(self, col, row) -> list:
+        if self.piece_object != "None":
+            piece = self.piece_object(col, row)
+            piece.generate_legal_moves()
+            legal_moves = piece.filter_legal_moves()
+            return legal_moves
     
     def update_set() -> str:
         pass

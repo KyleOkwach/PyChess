@@ -1,9 +1,14 @@
 from logic.pieces.piece import Piece
 
 class Bishop(Piece):
+
+    def generate_legal_moves(self):
+        self.legal_moves = self.test_legal_moves
+        
+        return self.legal_moves
     
-    def legal_move(self, file, rank) -> bool:
+    def legal_move(self, col, row) -> bool:
         pass
 
-    def move_bishop(self, file, rank):
+    def move_bishop(self, col, row):
         pass

@@ -2,19 +2,23 @@ from logic.pieces.piece import Piece
 
 class Knight(Piece):
 
-    def legal_move(self, file, rank) -> bool:
-        legal_moves = [
-            [self.file - 1, self.rank - 2],
-            [self.file - 1, self.rank + 2],
-            [self.file + 1, self.rank - 2],
-            [self.file + 1, self.rank + 2],
-            [self.file - 2, self.rank - 1],
-            [self.file - 2, self.rank + 1],
-            [self.file + 2, self.rank - 1],
-            [self.file + 2, self.rank + 1]
-        ]
+    def generate_legal_moves(self) -> list:
+        # self.legal_moves = [
+        #     [self.col - 1, self.row - 2],
+        #     [self.col - 1, self.row + 2],
+        #     [self.col + 1, self.row - 2],
+        #     [self.col + 1, self.row + 2],
+        #     [self.col - 2, self.row + 1],
+        #     [self.col + 2, self.row - 1],
+        #     [self.col + 2, self.row + 1]
+        # ]
 
+        self.legal_moves = self.test_legal_moves
+        
+        return self.legal_moves
+
+    def legal_move(self, col, row) -> bool:
         pass
 
-    def move_knight(self, file, rank):
+    def move_knight(self, col, row):
         pass

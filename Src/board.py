@@ -2,6 +2,8 @@ import pygame
 
 class Board:
 
+    # just renders the board
+
     def __init__(self, surface, size, theme):
         self.board_size = 8
         self.LIGHT_COLOR = theme[0]
