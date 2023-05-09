@@ -45,7 +45,7 @@ square_size = board_height // 8
 
 screen.fill("#1E1E1E")
 global player
-player = 2  # 1 for white, 2 for black
+player = 1  # 1 for white, 2 for black
 
 def start_game(board, fen, fenStr:str, player):
     curr_pos = fenStr
@@ -77,6 +77,8 @@ def start_game(board, fen, fenStr:str, player):
         screen.blit(highlight_surface, (boardX, boardY))
         screen.blit(piece_surface, (boardX, boardY))
 
+        color = ["White", "Black"]
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -96,16 +98,16 @@ def start_game(board, fen, fenStr:str, player):
                     row = int(mouseY // square_size)
 
                     active_piece = fen.read_fen()[row][col]
-                    move = Moves(highlight_surface, board_height, active_piece, fenBoard)
+                    moves = Moves(highlight_surface, board_height, color[player-1], active_piece, fenBoard)
                     if active_piece != "x":
                         if player == 1 and fen.read_fen()[row][col].isupper():
-                            move.active_square(col, row)
-                            move.occupiable_squares(col, row)  # highlight occupiable squares
+                            moves.active_square(col, row)
+                            moves.show_all(col, row)  # highlight all legal moves
                         if player == 2 and fen.read_fen()[row][col].islower():
-                            move.active_square(col, row)
-                            move.occupiable_squares(col, row)
+                            moves.active_square(col, row)
+                            moves.show_all(col, row)
                     else:
-                        move.refresh()
+                        moves.refresh()
         
         # curr_pos = pieces.update_board()
 
@@ -128,7 +130,6 @@ def main():
 
     fen = Fen(curr_pos, player)
 
-    curr_pos = puzzle_pos
     start_game(board, fen, curr_pos, player)
 
 

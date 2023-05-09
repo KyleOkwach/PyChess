@@ -40,8 +40,6 @@ class Fen:
         return board
 
     def draw_pieces(self, surface):
-        position = self.position
-
         for (i, y) in zip(self.read_fen(), range(8)):
             for (j, x) in zip(i, range(8)):
                 if j.isupper():
@@ -49,7 +47,7 @@ class Fen:
                 else:
                     color = "Black"
                 # PieceSet(surface, color, x, y, self.piece_map[j.lower()]).draw_piece()
-                PieceSet(j.lower()).draw_piece(surface, color, x, y)
+                PieceSet(color, j.lower(), self.read_fen()).draw_piece(surface, x, y)
             
     def update_board(self) -> str:
         # update fen board after move

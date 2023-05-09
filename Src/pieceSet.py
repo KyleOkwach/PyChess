@@ -12,10 +12,12 @@ from logic.pieces.king import King
 
 class PieceSet:
 
-    def __init__(self, type):
+    def __init__(self, color,type, board):
         self.type = type
+        self.board = board
         self.styles = ["classic", "1kb_gambit"]
         self.style = self.styles[1]
+        self.color = color
 
         self.piece_map = {
             "r" : Rook,
@@ -39,22 +41,23 @@ class PieceSet:
 
         self.piece_object = self.piece_map[self.type]
 
-    def draw_piece(self, surface, color, col, row):
+    def draw_piece(self, surface, col, row):
 
         self.surface = surface
-        self.color = color
         self.row = row
         self.col = col
 
         if self.piece_object != "None":
-            self.piece_object(self.col, self.row).draw_piece(self.piece_map_str[self.type].lower(), self.surface, self.color, self.style)
+            self.piece_object(self.col, self.row, self.board).draw_piece(self.piece_map_str[self.type].lower(), self.surface, self.color, self.style)
     
     def get_legal_moves(self, col, row) -> list:
         if self.piece_object != "None":
-            piece = self.piece_object(col, row)
+            piece = self.piece_object(col, row, self.board)
             piece.generate_legal_moves()
-            legal_moves = piece.filter_legal_moves()
-            return legal_moves
+            legal_moves = piece.filter_legal_moves(self.color)
+            legal_captures = piece.legal_captures()
+            moveset = [legal_moves, legal_captures]
+            return moveset
     
     def update_set() -> str:
         pass
