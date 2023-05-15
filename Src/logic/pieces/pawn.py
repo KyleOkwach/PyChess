@@ -12,8 +12,5 @@ class Pawn(Piece):
         
         return self.legal_moves
 
-    def move_pawn(self, col, row):
-        pass
-
     def can_promote(self, col, row) -> bool:
         pass

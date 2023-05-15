@@ -16,12 +16,6 @@ class King(Piece):
         
         return self.legal_moves
 
-    def legal_move(self, col, row) -> bool:
-        pass
-
-    def move_king(self, col, row):
-        pass
-
     def check() -> bool:
         pass
 

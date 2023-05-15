@@ -12,16 +12,6 @@ class Piece:
         self.row = row
         self.board = board
         self.legal_moves = []
-        self.test_legal_moves = [
-            [self.col - 2, self.row - 1],
-            [self.col + 2, self.row - 1],
-            [self.col - 2, self.row + 1],
-            [self.col + 2, self.row + 1],
-            [self.col - 1, self.row - 2],
-            [self.col + 1, self.row - 2],
-            [self.col - 1, self.row + 2],
-            [self.col + 1, self.row + 2]
-        ]
         self.legal_captures_list = []
 
         self.possible_captures = {

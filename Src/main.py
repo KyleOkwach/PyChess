@@ -126,7 +126,9 @@ def main():
     starting_pos = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     test_pos = "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1"
     puzzle_pos = "2kr1b1r/p1p3pp/1p3n2/4B3/1q6/2NB4/PPP2PbP/R2QK2R w k - 0 1"
-    curr_pos = puzzle_pos
+    puzzle_pos2 = "2kr1b1r/p1p3pp/1p3n2/2R5/1q6/2NB4/PPP2PbP/B2QK2R w k - 0 1"
+    puzzle_pos3 = "2kr1b1r/p1p3pp/1p3n2/7R/1q6/2NB4/PPP2PbP/B2QK2R w k - 0 1"
+    curr_pos = puzzle_pos2
 
     fen = Fen(curr_pos, player)
 
