@@ -14,6 +14,7 @@ class Moves:
         self.piece = piece
         self.board = board
         self.surface = surface
+        self.highlight_color = "#000000"
 
     def refresh(self):
         # remove highlight
@@ -38,10 +39,8 @@ class Moves:
         circle_width = int(self.SQUARE_SIZE // 20)
 
         for i in occupiable:
-            highlight_color = "#0000ff"
-
             self.surface.set_alpha(128)
-            pygame.draw.circle(self.surface, highlight_color, (int(i[0] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2), int(i[1] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2)), circle_radius, circle_width)
+            pygame.draw.circle(self.surface, self.highlight_color, (int(i[0] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2), int(i[1] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2)), circle_radius, circle_width)
 
     def attackable_squares(self,  col, row):
         # highlights squares that can be attacked
@@ -51,10 +50,8 @@ class Moves:
         circle_width = int(self.SQUARE_SIZE // 8)
 
         for i in attackable:
-            highlight_color = "#0000ff"
-
             self.surface.set_alpha(128)
-            pygame.draw.circle(self.surface, highlight_color, (int(i[0] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2), int(i[1] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2)), circle_radius, circle_width)
+            pygame.draw.circle(self.surface, self.highlight_color, (int(i[0] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2), int(i[1] * self.SQUARE_SIZE + self.SQUARE_SIZE // 2)), circle_radius, circle_width)
     
     def show_all(self, col, row):
         self.occupiable_squares(col, row)
